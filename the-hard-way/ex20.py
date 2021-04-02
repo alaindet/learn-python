@@ -1,20 +1,35 @@
 from sys import argv
-from os.path import exists
 
-script, input_file_path = argv
-output_lines = []
+script, input_file = argv
 
 
-def print_line(line_number, line_content):
-    return f'#{line_number} {line_content}'
+def print_all(file):
+    print(file.read())
 
 
-# TODO: Add error handling?
-with open(input_file_path) as input_file:
-    line_number = 1
-    for line in input_file:
-        output_line = print_line(line_number, line)
-        output_lines.append(output_line)
-        line_number += 1
-    output = ''.join(output_lines)
-    print(output)
+def rewind(file):
+    file.seek(0)
+
+
+def print_a_line(line_count, file):
+    print(line_count, file.readline())
+
+
+current_file = open(input_file)
+
+print("First, let's print the whole file")
+print('=================================\n')
+print_all(current_file)
+
+print("Now, let's rewind")
+print('=================\n')
+rewind(current_file)
+
+print("Let's print three lines")
+print('=======================\n')
+current_line = 1
+print_a_line(current_line, current_file)
+current_line = current_line + 1
+print_a_line(current_line, current_file)
+current_line = current_line + 1
+print_a_line(current_line, current_file)
