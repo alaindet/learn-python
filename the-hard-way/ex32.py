@@ -16,3 +16,10 @@ for i in range(0, 6):
 
 for i in elements:
   print(f'Looping on element {i}')
+
+for index, fruit in enumerate(fruits):
+  print(f'Fruit #{index} is {fruit}')
+
+print('Looping on two lists together!')
+for index, (fruit, money) in enumerate(zip(fruits, change)):
+  print(f'fruits[{index}] = {fruit}, change[{index}] = {money}')
