@@ -3,13 +3,13 @@ states = {
     'Florida': 'FL',
     'California': 'CA',
     'New York': 'NY',
-    'Michigan': 'MI'
+    'Michigan': 'MI',
 }
 
 cities = {
     'CA': 'San Francisco',
     'MI': 'Detroit',
-    'FL': 'Jacksonville'
+    'FL': 'Jacksonville',
 }
 
 cities['NY'] = 'New York'
