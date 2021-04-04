@@ -1,5 +1,5 @@
 from sys import exit
-from re import sub
+from textwrap import dedent
 
 # TODO: Refactor with dictionaries
 GOLD_THRESHOLD = 50
@@ -27,9 +27,7 @@ def print_text_block(text):
     Trims the text, substitutes any excessive whitespace with one
     and prints it
     """
-    text_block = text.strip()
-    text_block = sub('\n[ ]+', '\n', text_block)
-    print(text_block)
+    print(dedent(text))
 
 def show_available_actions(room):
     print('<::::::::::::::::::::::::::}]xxxx()o')
