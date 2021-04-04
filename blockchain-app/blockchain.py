@@ -5,6 +5,11 @@ blockchain_seed = [1]
 def get_user_input(question='Enter your transaction amount: '):
     """
     Returns the user input
+
+    Parameters
+    ----------
+    question : str
+        The question the user sees
     """
     return float(input(question))
 
@@ -28,4 +33,6 @@ tx_amount = get_user_input()
 add_value(tx_amount)
 add_value(tx_amount, get_last_blockchain_value())
 
-print(blockchain)
+for block in blockchain:
+    print('Outputting block')
+    print(block)
