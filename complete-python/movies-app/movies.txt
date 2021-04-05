@@ -1,0 +1,10 @@
+Madagascar;2005;Eric Darnell
+The Dark Knight;2008;Christopher Nolan
+The Godfather;1972;Francis Ford Coppola
+Pulp Fiction;1994;Quentin Tarantino
+The Lord of the Rings;2001;Peter Jackson
+Forrest Gump;1994;Robert Zemeckis
+Matrix;1999;Wachowskis
+Star Wars;1977;George Lucas
+Interstellar;2014;Christopher Nolan
+Back to the Future;1985;Robert Zemeckis
