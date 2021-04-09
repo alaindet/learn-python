@@ -9,31 +9,38 @@
 
 class AI:
 
-    ACTION: {
+    ACTION = {
         'play_again': 'y',
         'quit': 'n'
     }
 
-    MESSAGE: {
-        'input': 'Please enter an integer number: ',
+    TEMPLATE = {
         'answer': '{} is {}.',
         'play_again': 'Do you want to play again? ({}/{}): ',
+    }
+
+    MESSAGE = {
+        'input': 'Please enter an integer number: ',
         'value_error': 'Please input integer numbers only.',
         'quit': 'Goodbye.'
     }
 
+    @classmethod
     def interact(cls):
         while True:
             try:
-                user_input = int(input(cls.MESSAGE.input))
+                user_input = int(input(cls.MESSAGE['input']))
                 parity = 'even' if user_input % 2 == 0 else 'odd'
-                print(cls.MESSAGE.play_again.format(user_input, parity))
+                print(cls.TEMPLATE['answer'].format(user_input, parity))
             except ValueError:
-                print(cls.MESSAGE.value_error)
+                print(cls.MESSAGE['value_error'])
             finally:
-                user_input = input(cls.MESSAGE.play_again)
-                if user_input != cls.ACTION.play_again:
-                    print(cls.MESSAGE.qui)
+                template = cls.TEMPLATE['play_again']
+                yes = cls.ACTION['play_again']
+                no = cls.ACTION['quit']
+                user_input = input(template.format(yes, no))
+                if user_input != cls.ACTION['play_again']:
+                    print(cls.MESSAGE['quit'])
                     break
 
 
