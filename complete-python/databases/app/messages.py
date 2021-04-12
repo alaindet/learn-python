@@ -17,8 +17,6 @@ MESSAGE = {
     ),
 
     'input.error': 'You did not input a valid command.',
-    'input.book_name': 'Enter book name',
-    'input.book_author': 'Enter book author',
 
     'action.add_book': 'Adding a book to the collection...',
     'action.list_books': 'Listing all books from the collection...',

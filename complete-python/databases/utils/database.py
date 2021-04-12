@@ -6,7 +6,7 @@ class BookStore():
     def add_book(self, name, author):
         print('Adding a book to the store...') # Log
         book = {
-            'id': self.current_id
+            'id': self.current_id,
             'name': name,
             'author': author,
             'read': False
@@ -31,8 +31,8 @@ class BookStore():
     def _find_book_by_name(self, name):
         print('Finding book by name...') # Log
         for book in self.books:
-            if name == book['name']
-            return book
+            if name == book['name']:
+                return book
         return None
 
     def _update_book(self, book):
