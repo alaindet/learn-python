@@ -1,9 +1,11 @@
 from app.messages import MESSAGE
-from app.actions import ACTION, get_actions_menu
+from app.actions import ACTION
 from utils.inputs import get_input, ask_for
 from utils.books.repository import BooksRepository
-from utils.books.errors import BooksError
 
+
+class AppQuitException(Exception):
+    pass
 
 class App():
 
@@ -12,33 +14,40 @@ class App():
         self.action = ACTION
         self.message = MESSAGE
 
+    # TODO: Simplify
     def run(self):
-        print(self.message['title'])
-        user_action = None
-        while user_action != self.action['quit']['command']:
-            user_action = self._choose_action()
-            self._process_action(user_action)
+        try:
+            print(self.message['app.welcome'])
+            while True:
+                try:
+                    self.step()
+                except AppQuitException as e:
+                    print(self.message['app.goodbye'])
+                    break
+                except Exception as e:
+                    print(e)
+        except KeyboardInterrupt as e:
+            print(self.message['app.goodbye'])
+
+    def step(self):
+        user_action = self._choose_action()
+        if user_action == 'quit':
+            print(self.message['app.goodbye'])
+            raise AppQuitException();
+        self._process_action(user_action)
 
     def _choose_action(self):
-        try:
-            print(self.message['menu'])
-            user_action = get_input()
-            for name in self.action:
-                if self.action[name]['command'] == user_action:
-                    return name
-            raise ValueError(self.message['input.error'])
-        except ValueError as e:
-            print(e)
+        print(self.message['app.menu'])
+        user_action = get_input()
+        for name in self.action:
+            if self.action[name]['command'] == user_action:
+                return name
+        raise ValueError(self.message['input.error'])
 
     def _process_action(self, user_action):
-        try:
-            method_name = f'_process_{user_action}_action'
-            method = getattr(self, method_name)
-            method()
-        except AttributeError as e:
-            print(f'There is no method with name {method}')
-        except BooksError as book_error:
-            print(f'Some book error occurred')  # TODO
+        method_name = f'_process_{user_action}_action'
+        method = getattr(self, method_name)
+        method()
 
     def _process_add_book_action(self):
         print(self.message['action.add_book'])
