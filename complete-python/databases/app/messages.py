@@ -9,6 +9,7 @@ MESSAGE = {
     ),
 
     'menu': glue(
+        '',
         'Actions',
         '=======',
         get_actions_menu(),
@@ -16,10 +17,10 @@ MESSAGE = {
         'What do you want to do?',
     ),
 
-    'input.error': 'You did not input a valid command.',
+    'input.error': '\nYou did not input a valid command.',
 
-    'action.add_book': 'Adding a book to the collection...',
-    'action.list_books': 'Listing all books from the collection...',
-    'action.mark_book_as_read': 'Marking a book as read...',
-    'action.delete_book': 'Deleting a book from the collection...',
+    'action.add_book': '\nAdding a book to the collection...',
+    'action.list_books': '\nListing all books from the collection..',
+    'action.mark_book_as_read': '\nMarking a book as read...',
+    'action.delete_book': '\nDeleting a book from the collection...',
 }
