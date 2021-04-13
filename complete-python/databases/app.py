@@ -25,7 +25,8 @@ class App():
                     print(self.message['app.goodbye'])
                     break
                 except Exception as e:
-                    print(e)
+                    error_message = e.__str__()
+                    print('\n' + error_message)
         except KeyboardInterrupt as e:
             print(self.message['app.goodbye'])
 
