@@ -1,35 +1,32 @@
-import sqlite3
 from time import time_ns
 from pathlib import Path
 
 import utils.json
 from .errors import BookAlreadyExistsError, BookNotFoundError
 
-STORAGE_PATH = 'data.json'
-DATABASE_PATH = 'data.db'
-
-
 class BooksRepository():
 
-    def __init__(self):
+    def __init__(self, db):
         self.books = []
+        self.db = db
         self.storage_path = self._init_storage_path()
-
-        # TODO
-        self._init_db_connection()
-
         self._fetch_books()
+
+    def _init_table(self):
+        self.db.execute(
+            """
+            CREATE TABLE IF NOT EXISTS (
+                id PRIMARY KEY,
+                name,
+                author,
+                read
+            )
+            """
+        );
 
     def _init_storage_path(self):
         this_dir = Path(__file__).parent
-        return Path(this_dir, STORAGE_PATH).absolute()
-
-    def _init_db_connection(self):
-        root_dir = Path(__file__).parent.parent.parent
-        db_path = Path(root_dir, 'data', DATABASE_PATH).absolute()
-        db_conn = sqlite3.connect(db_path)
-        print(db_conn)
-        db_conn.close()
+        return Path(this_dir, 'data.json').absolute()
 
     def add_book(self, name, author):
         book = self._find_book_by_name(name)
@@ -57,7 +54,7 @@ class BooksRepository():
             logs.append('\n'.join([
                 '',
                 f"* | {book['name']} (by {book['author']})",
-                '  | ----------',
+                 '  | ----------',
                 f"  | ID: {book['id']}",
                 f"  | Already Read: {'YES' if book['read'] else 'NO'}"
             ]))

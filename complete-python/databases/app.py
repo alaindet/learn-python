@@ -1,6 +1,7 @@
 from app.messages import MESSAGE
 from app.actions import ACTION
 from utils.input import get_input, ask_for
+from utils.database_connection import DatabaseConnection
 from entities.books.repository import BooksRepository
 
 class App():
@@ -71,8 +72,9 @@ class App():
         print(self.message['result.delete_book'].format(book['name']))
 
 
-# Manual dependency injection
-books_repository = BooksRepository()
-
+# Manual dependency injection here
+db = DatabaseConnection()
+books_repository = BooksRepository(db)
 app = App(books_repository)
+
 app.start()
