@@ -2,7 +2,9 @@ from app.messages import MESSAGE
 from app.actions import ACTION
 from utils.input import get_input, ask_for
 from utils.database_connection import DatabaseConnection
+from utils.database import Database
 from entities.books.repository import BooksRepository
+
 
 class App():
 
@@ -73,7 +75,8 @@ class App():
 
 
 # Manual dependency injection here
-db = DatabaseConnection()
+db_connection = DatabaseConnection()
+db = Database(db_connection)
 books_repository = BooksRepository(db)
 app = App(books_repository)
 

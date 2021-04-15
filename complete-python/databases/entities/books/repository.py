@@ -1,19 +1,15 @@
-from time import time_ns
-from pathlib import Path
-
-import utils.json
 from .errors import BookAlreadyExistsError, BookNotFoundError
+
 
 class BooksRepository():
 
     def __init__(self, db):
-        self.books = []
         self.db = db
-        self.storage_path = self._init_storage_path()
         self._init_table()
-        self._fetch_books()
+        self.table = 'books'
 
     def _init_table(self):
+
         statement = (
             """
             CREATE TABLE IF NOT EXISTS "books" (
@@ -24,43 +20,40 @@ class BooksRepository():
                 PRIMARY KEY("id" AUTOINCREMENT)
             );
             """
-        );
-        cursor = self.db.connection.cursor()
-        cursor.execute(statement)
-        self.db.connection.commit()
-        cursor.close()
+        )
 
-    def _init_storage_path(self):
-        this_dir = Path(__file__).parent
-        return Path(this_dir, 'data.json').absolute()
+        self.db.execute(statement)
 
     def add_book(self, name, author):
 
         book = {
             'name': name,
             'author': author,
-            'read': 0,
+            'read': False,
         }
 
-        # TODO: Move to Database management class
-        keys = book.keys()
-        fields = ', '.join(keys)
-        placeholders = ', '.join([f':{key}' for key in keys])
-        statement = f'INSERT INTO books ({fields}) VALUES ({placeholders})'
-        book_id = self.db.execute(statement, book)
+        existing_book = self._find_book_by_name(name)
 
-        book['id'] = book_id
+        if existing_book is not None:
+            name = existing_book[0]['name']
+            message = f'Book with name "{name}" already exists'
+            raise BookAlreadyExistsError(message)
+
+        last_id = self.db.insert(self.table, book)
+        book['id'] = last_id
 
         return book
 
     def list_books(self):
-        logs = []
 
-        for book in self.books:
+        logs = []
+        books = self.db.select(self.table)
+
+        for book in books:
             logs.append('\n'.join([
                 '',
                 f"* | {book['name']} (by {book['author']})",
-                 '  | ----------',
+                '  | ----------',
                 f"  | ID: {book['id']}",
                 f"  | Already Read: {'YES' if book['read'] else 'NO'}"
             ]))
@@ -68,6 +61,7 @@ class BooksRepository():
         return '\n'.join(logs)
 
     def mark_book_as_read(self, name):
+
         book = self._find_book_by_name(name)
 
         if book is None:
@@ -75,8 +69,13 @@ class BooksRepository():
             raise BookNotFoundError(message)
 
         book['read'] = True
-        self._update_book(book)
-        self._store_books()
+
+        self.db.update(
+            self.table,
+            {'read': ':read'},
+            'id = :id',
+            {':read': book['read']}
+        )
 
         return book
 
@@ -87,22 +86,20 @@ class BooksRepository():
             message = f'Book with name "{name}" does not exist'
             raise BookNotFoundError(message)
 
-        self.books = [i for i in self.books if i['name'] != book['name']]
-        self._store_books()
+        self.db.delete(self.table, 'name = :name', {':name': f'%{name}%'})
 
         return book
 
     def _find_book_by_name(self, name):
-        for book in self.books:
-            if name in book['name']:
-                return book
-        return None
 
-    def _update_book(self, book):
-        self.books = [book if b['id'] == book['id'] else b for b in self.books]
+        result = self.db.select(
+            self.table,
+            'id',
+            'name LIKE :name',
+            {':name': f'%{name}%'}
+        )
 
-    def _store_books(self):
-        utils.json.store(self.storage_path, self.books)
+        if result.length == 0:
+            return None
 
-    def _fetch_books(self):
-        self.books = utils.json.fetch(self.storage_path)
+        return result[0]
