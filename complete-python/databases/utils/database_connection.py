@@ -15,4 +15,18 @@ class DatabaseConnection():
         return Path(root_dir, 'data', 'data.db').absolute()
 
     def init_connection(self):
-        return sqlite3.connect(self.path)
+        try:
+            return sqlite3.connect(self.path)
+        except Exception:
+            print('Could not establish database connection')
+
+    # TODO: Move to Database management class
+    def execute(self, sql, boundValues):
+        cursor = self.connection.cursor()
+        cursor.execute(sql, boundValues)
+        self.connection.commit()
+        return cursor.lastrowid
+
+    def select(self, sql):
+        # TODO
+        pass

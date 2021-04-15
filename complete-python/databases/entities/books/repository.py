@@ -8,14 +8,13 @@ class BooksRepository():
 
     def __init__(self, db):
         self.books = []
-        self.db = db.connection
+        self.db = db
         self.storage_path = self._init_storage_path()
         self._init_table()
         self._fetch_books()
 
     def _init_table(self):
-        self.db.cursor()
-        self.db.execute(
+        statement = (
             """
             CREATE TABLE IF NOT EXISTS "books" (
                 "id"	INTEGER,
@@ -26,39 +25,33 @@ class BooksRepository():
             );
             """
         );
-        self.db.commit()
+        cursor = self.db.connection.cursor()
+        cursor.execute(statement)
+        self.db.connection.commit()
+        cursor.close()
 
     def _init_storage_path(self):
         this_dir = Path(__file__).parent
         return Path(this_dir, 'data.json').absolute()
 
     def add_book(self, name, author):
-        book = self._find_book_by_name(name)
 
-        if book is not None:
-            message = f'Book with name "{name}" already exists'
-            raise BookAlreadyExistsError(message)
-
-        new_book = {
-            'id': time_ns(),
+        book = {
             'name': name,
             'author': author,
-            'read': False
+            'read': 0,
         }
 
-        self.books.append(new_book)
-        self._store_books()
+        # TODO: Move to Database management class
+        keys = book.keys()
+        fields = ', '.join(keys)
+        placeholders = ', '.join([f':{key}' for key in keys])
+        statement = f'INSERT INTO books ({fields}) VALUES ({placeholders})'
+        book_id = self.db.execute(statement, book)
 
-        self.db.cursor()
-        self.db.execute(
-            'INSERT INTO books VALUES ("{}", "{}")'.format(
-                new_book['name'],
-                new_book['author']
-            )
-        )
-        self.db.commit()
+        book['id'] = book_id
 
-        return new_book
+        return book
 
     def list_books(self):
         logs = []
