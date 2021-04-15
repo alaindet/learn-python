@@ -8,21 +8,25 @@ class BooksRepository():
 
     def __init__(self, db):
         self.books = []
-        self.db = db
+        self.db = db.connection
         self.storage_path = self._init_storage_path()
+        self._init_table()
         self._fetch_books()
 
     def _init_table(self):
+        self.db.cursor()
         self.db.execute(
             """
-            CREATE TABLE IF NOT EXISTS (
-                id PRIMARY KEY,
-                name,
-                author,
-                read
-            )
+            CREATE TABLE IF NOT EXISTS "books" (
+                "id"	INTEGER,
+                "name"	TEXT NOT NULL UNIQUE,
+                "author"	TEXT NOT NULL,
+                "read"	INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY("id" AUTOINCREMENT)
+            );
             """
         );
+        self.db.commit()
 
     def _init_storage_path(self):
         this_dir = Path(__file__).parent
@@ -44,6 +48,15 @@ class BooksRepository():
 
         self.books.append(new_book)
         self._store_books()
+
+        self.db.cursor()
+        self.db.execute(
+            'INSERT INTO books VALUES ("{}", "{}")'.format(
+                new_book['name'],
+                new_book['author']
+            )
+        )
+        self.db.commit()
 
         return new_book
 
