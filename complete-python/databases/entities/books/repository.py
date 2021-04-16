@@ -9,8 +9,7 @@ class BooksRepository():
         self.table = 'books'
 
     def _init_table(self):
-
-        statement = (
+        self.db.execute(
             """
             CREATE TABLE IF NOT EXISTS "books" (
                 "id"	INTEGER,
@@ -22,10 +21,7 @@ class BooksRepository():
             """
         )
 
-        self.db.execute(statement)
-
     def add_book(self, name, author):
-
         book = {
             'name': name,
             'author': author,
@@ -35,7 +31,7 @@ class BooksRepository():
         existing_book = self._find_book_by_name(name)
 
         if existing_book is not None:
-            name = existing_book[0]['name']
+            name = existing_book['name']
             message = f'Book with name "{name}" already exists'
             raise BookAlreadyExistsError(message)
 
@@ -45,7 +41,6 @@ class BooksRepository():
         return book
 
     def list_books(self):
-
         logs = []
         books = self.db.select(self.table)
 
@@ -61,23 +56,28 @@ class BooksRepository():
         return '\n'.join(logs)
 
     def mark_book_as_read(self, name):
-
         book = self._find_book_by_name(name)
 
         if book is None:
             message = f'Book with name "{name}" does not exist'
             raise BookNotFoundError(message)
 
-        book['read'] = True
+        updated_book = dict(book)
+        updated_book['read'] = True
 
         self.db.update(
             self.table,
-            {'read': ':read'},
+            {
+                'read': ':read'
+            },
             'id = :id',
-            {':read': book['read']}
+            {
+                ':read': updated_book['read'],
+                ':id': updated_book['id'],
+            }
         )
 
-        return book
+        return updated_book
 
     def delete_book(self, name):
         book = self._find_book_by_name(name)
@@ -99,7 +99,7 @@ class BooksRepository():
             {':name': f'%{name}%'}
         )
 
-        if result.length == 0:
+        if len(result) == 0:
             return None
 
         return result[0]

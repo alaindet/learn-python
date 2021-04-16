@@ -17,6 +17,7 @@ class DatabaseConnection():
     def open_connection(self):
         try:
             self.connection = sqlite3.connect(self.path)
+            self.connection.row_factory = sqlite3.Row
         except Exception:
             print('Could not establish database connection')
 
