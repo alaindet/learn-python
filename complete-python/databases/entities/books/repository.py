@@ -94,7 +94,7 @@ class BooksRepository():
 
         result = self.db.select(
             self.table,
-            'id',
+            '*',
             'name LIKE :name',
             {':name': f'%{name}%'}
         )
