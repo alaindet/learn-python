@@ -28,3 +28,13 @@ try:
     print(next(dummy_generator)) # <-- This breaks the code
 except StopIteration:
     print('Iteration stopped')
+
+
+# Generator comprehension
+my_gen = (x for x in [1, 2, 3, 4, 5])
+
+try:
+    while True:
+        print(next(my_gen))
+except StopIteration:
+    print('my_gen stopped')
