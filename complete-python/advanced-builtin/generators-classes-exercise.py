@@ -1,5 +1,23 @@
-# TODO: Define a PrimeGenerator class
+from is_prime import is_prime
+
 class PrimeGenerator:
-    # You may modify the __init__() method if necessary, but you don't need to change its arguments
+
     def __init__(self, stop):
-        self.stop = stop    # stop defines the range (exclusive upper bound) in which we search for the primes
+        self.stop = stop
+        self.counter = 0
+
+    def __next__(self):
+        while self.counter < self.stop:
+            self.counter += 1
+            if is_prime(self.counter):
+                return self.counter
+        raise StopIteration()
+
+
+
+try:
+    g = PrimeGenerator(100)
+    while True:
+        print(next(g))
+except StopIteration:
+    print('PrimeGenerator stopped')
