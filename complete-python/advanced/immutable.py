@@ -59,3 +59,22 @@ see_friend(friends_last_seen, 'Alice')
 
 # Same as "Outside 1" since see_friends is passed a reference
 print('Outside 2', id(friends_last_seen))
+
+
+print('\n# Example 3')
+age = 30
+def increase_age(curr_age):
+    curr_age += 1
+print(id(age))
+increase_age(age)
+print(id(age))
+
+print('\n# Example 4')
+primes = [2, 3, 5]
+print(id(primes))
+
+primes += [7, 11] # Equivalent to primes.__iadd__([7, 11])
+print(id(primes)) # This has identical ID
+
+primes = primes + [7, 11]
+print(id(primes)) # This changes ID
