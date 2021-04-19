@@ -47,4 +47,8 @@ measured_timing = measure_timing(func)
 print(measured_timing)
 
 print('\nTracking timings via timeit package')
-print('\nTODO')
+statement1 = '[x**2 for x in range(5)]'
+statement2 = 'list(map(lambda x: x**2, range(5)))'
+# timeit evaluates a Python statement many times and returns the total time
+print(timeit.timeit(statement1)) # This is ~15% faster
+print(timeit.timeit(statement2))
