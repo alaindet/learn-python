@@ -1,16 +1,19 @@
 from scraper import books
 
-def get_top_rated_books(limit=5):
-    sorted_books = sorted(books, key=lambda book: book.rating, reverse=True)
+def _sort_books(key, reverse=False):
+    return sorted(books, key=key, reverse=reverse)
+
+def _slice_books(sorted_books, limit=5):
     actual_limit = min(limit, len(sorted_books))
-    best_books = sorted_books[:actual_limit]
-    return best_books
+    return sorted_books[:actual_limit]
+
+def get_top_rated_books(limit=5):
+    sorted_books = _sort_books(lambda book: book.rating, reverse=True)
+    return _slice_books(sorted_books, limit)
 
 def get_cheapest_books(limit=5):
-    sorted_books = sorted(books, key=lambda book: book.price)
-    actual_limit = min(limit, len(sorted_books))
-    best_books = sorted_books[:actual_limit]
-    return best_books
+    sorted_books = _sort_books(lambda book: book.price, reverse=False)
+    return _slice_books(sorted_books, limit)
 
 print('\nTop rated books')
 for book in get_top_rated_books():
