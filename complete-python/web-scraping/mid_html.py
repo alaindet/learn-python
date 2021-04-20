@@ -5,50 +5,50 @@ mid_html = '''
 <html>
 <head></head>
 <body>
-    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-        <article class="product_pod">
-            <div class="image_container">
-                <a href="catalogue/a-light-in-the-attic_1000/index.html">
-                    <img
-                        src="media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg"
-                        alt="A Light in the Attic"
-                        class="thumbnail"
-                    >
-                </a>
-            </div>
-            <p class="star-rating Three">
-                <i class="icon-star"></i>
-                <i class="icon-star"></i>
-                <i class="icon-star"></i>
-                <i class="icon-star"></i>
-                <i class="icon-star"></i>
-            </p>
-            <h3>
-                <a
-                    href="catalogue/a-light-in-the-attic_1000/index.html"
-                    title="A Light in the Attic"
-                >
-                    A Light in the ...
-                </a>
-            </h3>
-            <div class="product_price">
-                <p class="price_color">£51.77</p>
-                <p class="instock availability">
-                    <i class="icon-ok"></i>
-                    In stock
-                </p>
-                <form>
-                    <button
-                        type="submit"
-                        class="btn btn-primary btn-block"
-                        data-loading-text="Adding..."
-                    >
-                        Add to basket
-                    </button>
-                </form>
-            </div>
-        </article>
-    </li>
+  <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+      <div class="image_container">
+        <a href="catalogue/a-light-in-the-attic_1000/index.html">
+          <img
+            src="media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg"
+            alt="A Light in the Attic"
+            class="thumbnail"
+          >
+        </a>
+      </div>
+      <p class="star-rating Three">
+        <i class="icon-star"></i>
+        <i class="icon-star"></i>
+        <i class="icon-star"></i>
+        <i class="icon-star"></i>
+        <i class="icon-star"></i>
+      </p>
+      <h3>
+        <a
+          href="catalogue/a-light-in-the-attic_1000/index.html"
+          title="A Light in the Attic"
+        >
+          A Light in the ...
+        </a>
+      </h3>
+      <div class="product_price">
+        <p class="price_color">£51.77</p>
+        <p class="instock availability">
+          <i class="icon-ok"></i>
+          In stock
+        </p>
+        <form>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            data-loading-text="Adding..."
+          >
+            Add to basket
+          </button>
+        </form>
+      </div>
+    </article>
+  </li>
 </body>
 </html>
 '''
@@ -90,10 +90,10 @@ def find_item_rating():
     item_rating_element = soup.select_one(css_locator)
     classes = item_rating_element.attrs['class'] # ['star-rating', 'Two']
     filtered_classes = [c for c in classes if c in rating_classes]
-    rating_class = rating_classes[0]
-    rating = ragins[rating_class]
+    rating_class = filtered_classes[0]
+    rating = ratings[rating_class]
     print(rating)
-    
+
 
 find_item_name()
 find_item_link()
