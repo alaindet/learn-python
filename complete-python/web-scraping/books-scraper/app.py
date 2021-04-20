@@ -1,20 +1,21 @@
-import requests
+from scraper import books
 
-from pages.all_books_page import AllBooksPage
+def get_top_rated_books(limit=5):
+    sorted_books = sorted(books, key=lambda book: book.rating, reverse=True)
+    actual_limit = min(limit, len(sorted_books))
+    best_books = sorted_books[:actual_limit]
+    return best_books
 
-BOOKS_URL = 'https://books.toscrape.com'
-TEMP_FILE = 'books.temp'
-page_content = ''
+def get_cheapest_books(limit=5):
+    sorted_books = sorted(books, key=lambda book: book.price)
+    actual_limit = min(limit, len(sorted_books))
+    best_books = sorted_books[:actual_limit]
+    return best_books
 
-try:
-    with open(TEMP_FILE, 'r') as file:
-        page_content = file.read()
-except FileNotFoundError: 
-    page_content = requests.get(BOOKS_URL).text
-    with open(TEMP_FILE, 'w') as file:
-        file.write(page_content)
+print('\nTop rated books')
+for book in get_top_rated_books():
+    print(f'{book.rating}/5', book.name)
 
-all_books_page = AllBooksPage(page_content)
-for book in all_books_page.books:
-    print(book)
-
+print('\nCheapest books')
+for book in get_cheapest_books():
+    print(f'£{book.price}', book.name)

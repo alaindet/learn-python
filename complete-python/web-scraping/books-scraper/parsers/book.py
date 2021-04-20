@@ -14,6 +14,7 @@ class BookParser:
 
     def __init__(self, parent):
         self.parent = parent
+        self.rating_classes = self.ratings.keys()
 
     def __repr__(self):
         return f'<Book {self.name}>'
