@@ -38,9 +38,7 @@ def scrape_books() -> list:
         page = AllBooksPage(page_content)
 
         # Parse books in page and add to list
-        page_books = page.books
-        for book in page_books:
-            books.append(book.parse())
+        books.extend(page.books)
         stop_time = time.time()
         parsed_time = '%.3f' % (stop_time - start_time)
         parsed_page = str(page_number + 1).rjust(pages_padding, '0')
