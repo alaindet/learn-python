@@ -1,26 +1,33 @@
 import requests
 import json
 import time
+from sys import argv
+from pathlib import Path
 
 from pages.all_books_page import AllBooksPage
 
 BOOKS_URL = 'https://books.toscrape.com/catalogue/page-{}.html'
 TEMP_FILE = 'books.temp.json'
 PAGES = 50
+
 books = []
+script, *options = argv
+should_force = '--force' in options
 
-try:
-
-    # Load from cache
+def load_books_from_cache() -> list:
     with open(TEMP_FILE, 'r') as file:
         books_json = json.load(file)
-        books = books_json['books']
-        print(len(books))
-        print(books[0]['name'])
+        return books_json['books']
 
-except FileNotFoundError:
+def store_books_to_cache(books) -> None:
+    with open(TEMP_FILE, 'w') as file:
+        json_content = {'books': books}
+        json.dump(json_content, file)
+        print('Books stored in temporary file')
 
+def scrape_books() -> list:
     print('Scraping...')
+    start_total_time = time.time()
     pages_padding = len(str(PAGES))
 
     # Scrape pages on loop
@@ -39,7 +46,15 @@ except FileNotFoundError:
         parsed_page = str(page_number + 1).rjust(pages_padding, '0')
         print(f'Scraped page {parsed_page} / {PAGES} in {parsed_time} seconds')
 
-    # Store parsed book in temporary file for further analysis
-    with open(TEMP_FILE, 'w') as file:
-        json_content = {'books': books}
-        json.dump(json_content, file)
+    stop_total_time = time.time()
+    parsed_total_time = '%.3f' % (stop_total_time - start_total_time)
+    print(f'Scraped {PAGES} pages in {parsed_total_time} seconds')
+
+    return books
+
+
+if Path(TEMP_FILE).is_file() and not should_force:
+    books = load_books_from_cache()
+else:
+    books = scrape_books()
+    store_books_to_cache(books)
