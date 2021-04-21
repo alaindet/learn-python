@@ -20,22 +20,26 @@ def _slice_books(sorted_books, limit=5):
     return sorted_books[:actual_limit]
 
 def get_top_rated_books(limit=5):
-    sorted_books = _sort_books(lambda book: book.rating, reverse=True)
+    sorted_books = _sort_books(lambda book: book['rating'], reverse=True)
     return _slice_books(sorted_books, limit)
 
 def get_cheapest_books(limit=5):
-    sorted_books = _sort_books(lambda book: book.price, reverse=False)
+    sorted_books = _sort_books(lambda book: book['price'], reverse=False)
     return _slice_books(sorted_books, limit)
 
 def on_show_top_rated_books():
     print('\nTop rated books')
     for book in get_top_rated_books():
-        print(f'{book.rating}/5', book.name)
+        name = book['name']
+        rating = book['rating']
+        print(f'{rating}/5', name)
 
 def on_show_cheapest_books():
     print('\nCheapest books')
     for book in get_cheapest_books():
-        print(f'£{book.price}', book.name)
+        name = book['name']
+        price = book['price']
+        print(f'£{price}, {name}')
 
 def on_show_next_book():
     print('\nShow the next book')

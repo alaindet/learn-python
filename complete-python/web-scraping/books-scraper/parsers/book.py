@@ -19,6 +19,14 @@ class BookParser:
     def __repr__(self):
         return f'<Book {self.name}>'
 
+    def parse(self):
+        return {
+            'name': self.name,
+            'link': self.link,
+            'price': self.price,
+            'rating': self.rating
+        }
+
     @property
     def name(self):
         locator = BookLocators.NAME
