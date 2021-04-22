@@ -8,7 +8,6 @@ from pages.all_books_page import AllBooksPage
 
 BOOKS_URL = 'https://books.toscrape.com/catalogue/page-{}.html'
 TEMP_FILE = 'books.temp.json'
-PAGES = 50
 
 books = []
 script, *options = argv
@@ -25,34 +24,49 @@ def store_books_to_cache(books) -> None:
         json.dump(json_content, file)
         print('Books stored in temporary file')
 
+def scrape_books_page(page_number=1) -> AllBooksPage:
+    url = BOOKS_URL.format(page_number)
+    page_content = requests.get(url).text
+    return AllBooksPage(page_content)
+
+
 def scrape_books() -> list:
+
+    # Log
     print('Scraping...')
     start_total_time = time.time()
-    pages_padding = len(str(PAGES))
 
-    # Scrape pages on loop
-    for page_number in range(PAGES):
+    # Scrape first page
+    first_page = scrape_books_page(1)
+    pages_count = first_page.page_count
+    pages_count_padding = len(str(pages_count))
+
+    # Scrape remaining pages on loop
+    for page_number in range(2, pages_count + 1):
+
         start_time = time.time()
-        url = BOOKS_URL.format(page_number + 1)
-        page_content = requests.get(url).text
-        page = AllBooksPage(page_content)
-
-        # Parse books in page and add to list
+        page = scrape_books_page(page_number)
         books.extend(page.books)
         stop_time = time.time()
-        parsed_time = '%.3f' % (stop_time - start_time)
-        parsed_page = str(page_number + 1).rjust(pages_padding, '0')
-        print(f'Scraped page {parsed_page} / {PAGES} in {parsed_time} seconds')
 
+        # Log
+        parsed_time = '%.3f' % (stop_time - start_time)
+        parsed_page = str(page_number + 1).rjust(pages_count_padding, '0')
+        print(f'Scraped page {parsed_page} / {pages_count} in {parsed_time} seconds')
+
+    # Log
     stop_total_time = time.time()
     parsed_total_time = '%.3f' % (stop_total_time - start_total_time)
-    print(f'Scraped {PAGES} pages in {parsed_total_time} seconds')
+    print(f'Scraped {pages_count} pages in {parsed_total_time} seconds')
 
     return books
 
 
+# Load from cache
 if Path(TEMP_FILE).is_file() and not should_force:
     books = load_books_from_cache()
+
+# Build books list
 else:
     books = scrape_books()
     store_books_to_cache(books)
