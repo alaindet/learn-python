@@ -133,4 +133,5 @@ dmypy.json
 *.ignore
 *.temp.*
 *.temp
-*.exe
+chromedriver
+chromedriver.exe
