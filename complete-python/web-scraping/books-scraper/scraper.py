@@ -38,7 +38,7 @@ def scrape_books() -> list:
 
     # Scrape first page
     first_page = scrape_books_page(1)
-    pages_count = first_page.page_count
+    pages_count = first_page.page_count # TODO: Force to lower pages for fixing
     pages_count_padding = len(str(pages_count))
 
     # Scrape remaining pages on loop
