@@ -11,7 +11,7 @@
   - Sequence Types:	`list`, `tuple`, `range`
   - Mapping Type:	`dict`
   - Set Types:`set`, `frozenset`
-  - Boolean Type:	`bool`
+  - Boolean Type:	`bool` (`True` and `False`)
   - Binary Types:	`bytes`, `bytearray`, `memoryview`
   - None Type: `NoneType`
 
