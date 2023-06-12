@@ -11,7 +11,7 @@
 - Forzen set: immutable unordered sequence of unique values
 - Dictionary: mutable unordered sequence of key-value pairs
 
-## Numbers
+## Operators
 - Operators are
   - Arithmetic operators: `+`, `-`, `*`, `/`, `//`, `**`, `%`
   - Assignment operators: `=`, `+=`, `-=`, `*=`, `/=`
