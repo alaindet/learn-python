@@ -18,3 +18,7 @@ This repository contains the learning material, demo, tests and everything I use
 - Learn Python the Hard Way
   - **Book**: [Learn Python the Hard Way](https://learnpythonthehardway.org/python3/)
   - **Teacher**: [Zed Shaw](https://en.wikipedia.org/wiki/Zed_Shaw)
+
+- Python Programming; The Complete Python Bootcamp 2023
+  - **Course**: [Python Programming; The Complete Python Bootcamp 2023](https://www.udemy.com/course/master-python-programming-complete-python-bootcamp)
+  - **Teacher**: [Andrei Dumitrescu](https://www.udemy.com/user/andrei-dumitrescu-10/)
