@@ -22,3 +22,7 @@ This repository contains the learning material, demo, tests and everything I use
 - Python Programming; The Complete Python Bootcamp 2023
   - **Course**: [Python Programming; The Complete Python Bootcamp 2023](https://www.udemy.com/course/master-python-programming-complete-python-bootcamp)
   - **Teacher**: [Andrei Dumitrescu](https://www.udemy.com/user/andrei-dumitrescu-10/)
+
+# Resources
+- [All Python's built-in functions](https://docs.python.org/3/library/functions.html)
+- [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
