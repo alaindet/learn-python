@@ -12,3 +12,8 @@
 
 - Strings are just lists of characters
 - A single character is STILL a string in Python, there's no concept of character types
+
+## Built-in methods
+- There are currently 81 string methods!
+- Print all string methods with this `print(dir(str))`
+- https://docs.python.org/3/library/stdtypes.html#string-methods
