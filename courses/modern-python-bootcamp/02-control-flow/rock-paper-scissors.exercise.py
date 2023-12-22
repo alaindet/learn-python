@@ -16,22 +16,32 @@ computer_score = 0
 def get_random_move() -> Union[ROCK, PAPER, SCISSORS]:
     return choice(RPS)
 
-def validate_move(move: Union[ROCK, PAPER, SCISSORS]) -> bool:
-    return move.lower() in RPS
+def normalize_move(move: str) -> Union[ROCK, PAPER, SCISSORS]:
+    move_lower = move.lower()
+    if move_lower in RPS:
+        return move_lower
+    elif move == 'r':
+        return ROCK
+    elif move == 'p':
+        return PAPER
+    elif move == 's':
+        return SCISSORS
+    else:
+        raise ValueError
 
 def read_move() -> Union[ROCK, PAPER, SCISSORS]:
     while True:
         try:
-            move_input = input('Enter a move ("rock", "paper" or "scissors") > ')
-            if not validate_move(move_input):
-                raise ValueError
-            return move_input
+            move_input = input('Enter a move > ')
+            return normalize_move(move_input)
         except ValueError:
-            print('Invalid move entered, try again')
+            print('Invalid move entered, try again.')
+            print('Valid moves are "rock", "r", "paper", "p", "scissors", "s"')
+            print('\n')
 
 def check_move(
     player1: Union[ROCK, PAPER, SCISSORS],
-    player2: Union[ROCK, PAPER, SCISSORS]
+    player2: Union[ROCK, PAPER, SCISSORS],
 ) -> Union[PLAYER1_WINS, PLAYER2_WINS, DRAW]:
     
     if player1 == player2:
@@ -67,7 +77,7 @@ def rock_paper_scissors() -> None:
         else:
             outcome = 'Draw!'
 
-        print(f'{human_move} (human) VS {computer_move} (computer) = {outcome}')
+        print(f'[Human] {human_move} VS [Computer] {computer_move} => {outcome}')
         print(f'[Scores] Human: {human_score}, Computer: {computer_score}')
         print('\n')
 
