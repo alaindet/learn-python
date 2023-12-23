@@ -25,3 +25,36 @@ print({}.fromkeys(['a', 'b', 'c', 'd'], None))
 
 print(person.get('name'))  # Prints 'John'
 print(person.get('nope'))  # Prints None without raising a KeyError
+
+person2 = {
+    'name': 'John',
+    'age': 30,
+}
+
+# Remove a key-value pair and returns its value
+print(person2.pop('name'))  # Prints 'John'
+print(person2)  # Prints {'age': 30}
+
+try:
+    person2.pop('nope')
+except KeyError:
+    print('a KeyError was raised')
+
+d4 = dict(a=1, b=2, c=3)
+
+# Removes and returns the last inserted key-value pair (as of Python 3.7+)
+print(d4.popitem())
+print(d4.popitem())
+print(d4.popitem())
+
+# Raises a KeyError if popping from an empty dictionary
+try:
+    print(d4.popitem())
+except KeyError:
+    print('a KeyError was raised')
+
+# Use one dictionary to update values of another dictionary
+d5 = dict(a=1, b=2, c=3)
+d6 = dict(a=11, d=4)
+d6.update(d5)
+print(d6)  # Prints {'a': 1, 'd': 4, 'b': 2, 'c': 3}
