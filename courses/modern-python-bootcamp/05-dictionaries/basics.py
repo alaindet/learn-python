@@ -11,8 +11,15 @@ person = {
 # Or you can use keyword arguments passed to dict()
 same_person = dict(name='John', age=30)
 
+# You can also do this cool thing
+same_person_again = dict([['name', 'John'], ['age', 30]])
+
 # Accessing via a key
-print(person['name'])
+print(
+    person['name'],
+    same_person['name'],
+    same_person_again['name'],
+)
 
 # Uh oh, the key does not exist!
 try:
