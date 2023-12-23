@@ -8,6 +8,7 @@ LOWER = -1
 EXACT = 0
 HIGHER = 1
 
+
 def get_integer_input(message: str) -> int:
     while True:
         try:
@@ -17,6 +18,7 @@ def get_integer_input(message: str) -> int:
         except ValueError:
             print('Invalid input')
 
+
 def guessing_game_check(to_be_guessed: int, picked: int) -> Union[LOWER, EXACT, HIGHER]:
     if picked < to_be_guessed:
         return LOWER
@@ -24,11 +26,12 @@ def guessing_game_check(to_be_guessed: int, picked: int) -> Union[LOWER, EXACT, 
         return HIGHER
     return EXACT
 
+
 def guessing_game() -> None:
     random_number = randint(GUESS_GAME_MIN, GUESS_GAME_MAX)
     message = f'Pick a number between {GUESS_GAME_MIN} and {GUESS_GAME_MAX}'
     attempts = 0
-    
+
     while True:
         attempts += 1
         picked_number = get_integer_input(message)
@@ -45,6 +48,7 @@ def guessing_game() -> None:
         print(f'You guessed the number {random_number} in {attempts} attempts')
         return
 
+
 def main() -> None:
 
     games = 0
@@ -56,6 +60,7 @@ def main() -> None:
         games += 1
         print(f'\nGame #{games}')
         guessing_game()
+
 
 if __name__ == '__main__':
     main()

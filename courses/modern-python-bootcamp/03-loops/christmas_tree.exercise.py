@@ -21,6 +21,7 @@ N = 3 outputs
 *** | ***
 """
 
+
 def christmas_tree(n: int) -> str:
 
     if n == 0:
@@ -38,6 +39,7 @@ def christmas_tree(n: int) -> str:
         lines.append(line)
 
     return '\n'.join(lines)
+
 
 for n in range(10):
     print(f'n = {n}')
