@@ -34,6 +34,8 @@ divmod()        issubclass()                    _
                 iter()                          __import__()
 """
 
+from typing import List
+
 # Examples for map()
 nums = [1, 2, 3, 4, 5]
 # Note: map() returns an iterator, which has to be exhausted and converted into
@@ -103,3 +105,113 @@ print(shortest_names)  # 3 (the shortest name, which is 'Bob')
 # Without altering it, or creating a generator
 longest_names = max(names, key=lambda name: len(name))
 print(longest_names)  # Charlie
+
+
+def is_palindrome(sentence: str) -> bool:
+    """An example of reversed() usage"""
+    s_normal = sentence.strip().lower().replace(' ', '')
+    s_reversed = ''.join(reversed(s_normal))
+    return s_normal == s_reversed
+
+
+print(is_palindrome('I Topi Non Avevano Nipoti'))  # True
+
+for n in reversed(range(3)):
+    print(n)  # Prints 2, then 1, then 0
+
+
+# Examples for len() - Works on any sequence type!
+# Prints 5 4 4 5 4 2
+print(
+    len('hello'),  # Works on strings
+    len((1, 2, 3, 4)),  # Works on tuples
+    len([1, 2, 3, 4]),  # Works on lists
+    len(range(5)),  # Works on range objects
+    len({1, 2, 3, 4}),  # Works on sets
+    len({'foo': 1, 'bar': 2}),  # Works on dictionaries
+)
+
+# len() just calls .__len__() dunder method on given objects, really
+# Prints 5 5
+print(
+    len('hello'),
+    'hello'.__len__(),  # Equivalent
+)
+
+
+class DeckOfCards:
+
+    def __init__(self, data):
+        self.data = data
+
+    def __len__(self) -> int:
+        """Note: we're implementing __len__ so calling len() on DeckOfCards works"""
+        return len(self.data)
+
+    def __str__(self) -> str:
+        """Note: we're implementing __str__ so DeckOfCards can be converted to str"""
+        return f'The deck has {self.__len__()} cards'
+
+
+deck = DeckOfCards([c for c in range(52)])
+print(len(deck))  # Prints 52
+print(deck)  # Prints 'The deck has 52 cards'
+
+# Examples for abs(), sum() and round()
+print(abs(-5), abs(42))  # 5 42
+
+print(
+    sum((1, 2, 3, 4)),
+    sum([1, 2, 3, 4]),
+    sum(range(1, 5)),
+    sum([1, 2, 3, 4], start=10),
+    sum([1, 2, 3, 4], 20),
+)  # 10 10 10 20 30
+
+print(round(10/3))  # 3
+print(round(20/3))  # 7
+print(round(20/3, ndigits=5))  # 6.66667
+print(round(20/3, 3))  # 6.667
+
+# Examples for zip()
+# Loops in parallel on 2+ sequences and returns a tuple with all current loop
+# items from each sequence
+
+scores = [7, 6, 9, 7, 10, 5, 8]
+letters = 'abcdefg'
+
+for letter, score in zip(letters, scores):
+    print(f'Letter: {letter}, Score: {score}')
+    # Letter: a, Score: 7
+    # Letter: b, Score: 6
+    # Letter: c, Score: 9
+    # Letter: d, Score: 7
+    # Letter: e, Score: 10
+    # Letter: f, Score: 5
+    # Letter: g, Score: 8
+
+# Prints{'a': 7, 'b': 6, 'c': 9, 'd': 7, 'e': 10, 'f': 5, 'g': 8}
+scores_registry = {letter: score for letter, score in zip(letters, scores)}
+print(scores_registry)
+
+# Note: zip() stops at the shortest sequence, if sequences have different lengths
+word1 = 'abcdefghi'
+word2 = 'abcdef'
+# Prints ['aa', 'bb', 'cc', 'dd', 'ee', 'ff'] <-- Notice 'ghi' from word1 are ignored
+print([f'{l1}{l2}' for l1, l2 in zip(word1, word2)])
+
+# Advanced zip() example
+students = ['Alice', 'Bob', 'Charlie']
+midterms = [80, 91, 78]
+finals = [98, 89, 53]
+
+highest_scores = {s: max(m, f) for s, m, f in zip(students, midterms, finals)}
+print(highest_scores)  # {'Alice': 98, 'Bob': 91, 'Charlie': 78}
+
+
+def avg(*args: List[int]) -> float:
+    return sum(args) / len(args)
+
+
+avg_scores = {s: avg(m, f) for s, m, f in zip(students, midterms, finals)}
+print(avg_scores)
