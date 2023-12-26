@@ -68,3 +68,38 @@ print(are_any_odds)  # True
 
 are_all_odds = all([n % 2 == 1 for n in [1, 3, 6, 7, 9]])
 print(are_all_odds)  # False, because 6 is even
+
+# Examples for sorted() - Sorts a copy of a sequence and returns it
+nums2 = [4, 1, 5, 3, 2]
+nums3 = sorted(nums2)
+print(nums2)  # [4, 1, 5, 3, 2]
+print(nums3)  # [1, 2, 3, 4, 5]
+print(sorted(nums2, reverse=True))  # [5, 4, 3, 2, 1]
+print(sorted((3, 69, 42, 2)))  # [2, 3, 42, 69]
+
+# Prints
+# Alice has 2 activities
+# Charlie has 1 activities
+active = [p for p in people if p['activities'] != 0]
+most_active = sorted(active, key=lambda p: p['activities'], reverse=True)
+for person in most_active:
+    print(f"{person['name']} has {person['activities']} activities")
+
+# Examples for min() and max()
+print(max(1, 42, 2))  # 42
+print(max([99, 3, 4]))  # 99
+print(max('hello', 'world'))  # world
+
+print(min(1, 42, 2))  # 1
+print(min([99, 3, 4]))  # 3
+print(min('hello', 'world'))  # hello
+
+# Custom value
+names = [p['name'] for p in people]
+shortest_names = min(len(name) for name in names)
+print(shortest_names)  # 3 (the shortest name, which is 'Bob')
+
+# This is much better since the key allows you to transform and compare data
+# Without altering it, or creating a generator
+longest_names = max(names, key=lambda name: len(name))
+print(longest_names)  # Charlie
