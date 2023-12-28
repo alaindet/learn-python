@@ -41,3 +41,13 @@ print(math_students.isdisjoint(art_students))  # True
 art_students.discard('Sam')
 art_students.discard('Nope')  # This fails silently
 print(art_students)  # {'Rhonda'}
+
+# Examples for all sets aliased operations
+a = {1, 2, 3, 4, 5, 6}
+b = {4, 5, 6, 7, 8, 9}
+
+print(a | b) # {1, 2, 3, 4, 5, 6, 7, 8, 9}
+print(a & b) # {4, 5, 6}
+print(a - b) # {1, 2, 3}
+print(b - a) # {7, 8, 9}
+print(a ^ b) # {1, 2, 3, 7, 8, 9}
