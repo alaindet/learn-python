@@ -3,6 +3,7 @@ class Rectangle:
         self.width = width
         self.height = height
 
+
     def __str__(self):
         return f'Rectangle: width={self.width}, height={self.height}'
     
@@ -75,8 +76,8 @@ print('__str__:', str(r1)) # Rectangle: width=3, height=5
 print('__repr__:', repr(r1)) # Rectangle(3, 5)
 
 # Using the __eq__ method
-print('Comparing with equal Rectangle: ', r1 == r2) # True
-print('Comparing with diffenrent Rectangle: ', r1 == r3) # False
+print('Comparing with equal Rectangle:', r1 == r2) # True
+print('Comparing with diffenrent Rectangle:', r1 == r3) # False
 
 # This returns False as "other" is not a Rectangle instance
 print('Comparing with non-Rectangle: ', r1 == [1, 2, 3]) # False
