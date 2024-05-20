@@ -3,7 +3,7 @@
 # given how how much these numbers are user
 a = 999999
 b = 999999
-print(a is b) # True
+print(a is b)  # True
 
 # Python interns strings and creates singleton instances to speed up string
 # comparisons. By default, strings getting interned are things that look like an
@@ -12,13 +12,13 @@ print(a is b) # True
 
 c = 'hello'
 d = 'hello'
-print(c is d) # True
+print(c is d)  # True
 
 # This could work or not, dependending of how your version of Python interns stuff
 # As of Python 3.12, this returns True
 e = 'hello world'
 f = 'hello world'
-print(e is f) # True
+print(e is f)  # True
 
 # # It is possible to manually intern strings to optimize the runtime for memory
 # # if you know those interned strings get compared many times

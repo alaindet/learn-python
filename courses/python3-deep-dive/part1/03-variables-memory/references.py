@@ -22,6 +22,13 @@ a = 999999
 b = 999999
 print(a is b)  # True
 
+# The reason why "a" and "b" have the same reference, is because the CPython runtime
+# creates and caches number objects (in old versions, from -6 to 256), for performance
+# given how how much these numbers are user
+a = 999999
+b = 999999
+print(a is b) # True
+
 # Here, however c and d do NOT share a reference to [1, 2, 3] since changing
 # a mutable object does not change its address and leads to unwanted side effects
 c = [1, 2, 3]
