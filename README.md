@@ -6,6 +6,10 @@ This repository contains the learning material, demo, tests and everything I use
 
 ## References
 
+- Python 3: Deep Dive (Part 1 - Functional)
+  - **Course**: [Python 3: Deep Dive (Part 1 - Functional)](https://www.udemy.com/course/python-3-deep-dive-part-1)
+  - **Teacher**: [Dr. Fred Baptiste](https://www.udemy.com/user/fredbaptiste/)
+
 - Python - The Practical Guide
   - **Course**: [Python - The Practical Guide](https://www.udemy.com/course/learn-python-by-building-a-blockchain-cryptocurrency)
   - **Teacher**: [Maximilian Schwarzmüller](https://www.udemy.com/user/maximilian-schwarzmuller/)
