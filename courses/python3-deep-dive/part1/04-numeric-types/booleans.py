@@ -97,3 +97,25 @@ print('bool(0j)', bool(0j))  # False
 # Object implementing __bool__ and __len__
 print('bool(WithDunderBool())', bool(WithDunderBool()))  # False
 print('bool(WithDunderLen())', bool(WithDunderLen()))  # False
+
+
+"""
+Precedence
+
+1. <, >, <=, >=, ==, !==, in, is
+2. not
+3. and
+4. or
+
+a < b or a > c and not x or y
+__1________1_________________  1. comparisons    
+___________________222_______  2. not
+_______________333___________  3. and
+______44_________________44__  4. or
+
+Using parentheses and ignoring precedence
+(a < b) or ((a > c) and (not x)) or y
+"""
+
+print('True or True and False', True or True and False)  # True
+print('(True or True) and False', (True or True) and False)  # False
