@@ -74,3 +74,23 @@ if name and name[0] in string.digits:
 # Equivalent to
 if name is not None and len(name) > 0 and name[0] in string.digits:
     print('Name should not start with a digit')
+
+
+def get_a() -> int:
+    print('call to get_a()')
+    return 2
+
+
+def get_b() -> int:
+    print('call to get_b()')
+    return 0
+
+
+# Prints
+# call to get_b()
+# nope
+# Note: get_a never gets called due to short-circuiting
+if get_b() and get_a():
+    print('yep')
+else:
+    print('nope')
