@@ -1,3 +1,5 @@
+import string
+
 """
 ## Precedence
 
@@ -64,3 +66,11 @@ if b and a/b > 0:
     print('a/b > 0')
 else:
     print('b is zero!')
+
+name = 'Bob'
+if name and name[0] in string.digits:
+    print('Name should not start with a digit')
+
+# Equivalent to
+if name is not None and len(name) > 0 and name[0] in string.digits:
+    print('Name should not start with a digit')

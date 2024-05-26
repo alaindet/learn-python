@@ -76,7 +76,7 @@ print('\nTruthyness\n----------')
 print('bool(None)', bool(None))  # False
 print('bool(False)', bool(False))  # False
 
-# The empty sequences
+# The empty sequences, because they're length is zero
 print('bool([])', bool([]))  # False
 print('bool(list())', bool(list()))  # False
 print('bool(())', bool(()))  # False
