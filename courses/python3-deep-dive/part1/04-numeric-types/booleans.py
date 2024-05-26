@@ -1,4 +1,6 @@
 """
+# Booleans
+
 In Python, the boolean primitive type is "bool" and is a subclass of int
 Two constants are pre-defined, True (1) and False (0)
 """
@@ -19,8 +21,7 @@ yes = True
 no = False
 
 # "Weird but ok" sentences
-print('\n"Weird-but-ok" sentences')
-print('------------------------')
+print('\n"Weird-but-ok" sentences\n------------------------')
 print('True + True', True + True)  # 2
 print('True > False', True > False)  # True
 print('True * False', True * False)  # 0
@@ -37,7 +38,7 @@ print('-True', -True)  # -1
 # False is 0 fails
 
 """
-# Truthyness
+## Truthyness
 
 Every single object in Python has a "truth value" or "truthyness", which means
 anything can be converted to a boolean by default (and be used in if statements).
@@ -69,8 +70,7 @@ class WithDunderLen():
         return 0
 
 
-print('\nTruthyness')
-print('----------')
+print('\nTruthyness\n----------')
 
 # The obvious ones
 print('bool(None)', bool(None))  # False
@@ -97,25 +97,3 @@ print('bool(0j)', bool(0j))  # False
 # Object implementing __bool__ and __len__
 print('bool(WithDunderBool())', bool(WithDunderBool()))  # False
 print('bool(WithDunderLen())', bool(WithDunderLen()))  # False
-
-
-"""
-Precedence
-
-1. <, >, <=, >=, ==, !==, in, is
-2. not
-3. and
-4. or
-
-a < b or a > c and not x or y
-__1________1_________________  1. comparisons    
-___________________222_______  2. not
-_______________333___________  3. and
-______44_________________44__  4. or
-
-Using parentheses and ignoring precedence
-(a < b) or ((a > c) and (not x)) or y
-"""
-
-print('True or True and False', True or True and False)  # True
-print('(True or True) and False', (True or True) and False)  # False
