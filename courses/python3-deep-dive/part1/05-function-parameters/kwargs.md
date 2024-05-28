@@ -1,0 +1,32 @@
+# `*kwargs`
+
+- Functions can use extended unpacking for dictionaries to capture all keyword
+arguments provided to the functions
+- Conventionally, the variable for unpacking keyword arguments is `**kwargs`
+- The `*` character in the arguments list is not an arguments, it just represents the _end_ of positional arguments
+- Similarly, the `/` represents TODO
+
+## Building a function signature in Python
+
+```py
+# This is pseudo Python code
+
+# - Two mandatory positional args
+# - Variadic optional positional args
+# - One mandatory keyword arg
+def fn(a, b, *args, d)
+
+# - Variadic optional positional args
+# - One mandatory keyword arg
+def fn(*args, d)
+
+# - No positional args allowed
+# - One mandatory keyword arg
+def fn(*, d)
+
+# - One mandatory positional arg
+# - Variadic optional positional args
+# - One mandatory keyword arg
+# - One optional keyword arg
+def fn(a, *args, b, c=42)
+```
