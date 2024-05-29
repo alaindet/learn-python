@@ -29,3 +29,38 @@ def fn3(*, d):
 
 
 fn3(d=42)  # fn3: d=42
+
+
+def fn4(*, d, **kwargs):
+    print(f'fn4: d={d}, kwargs={kwargs}')
+
+
+fn4(d=1)  # fn4: d=1, kwargs={}
+fn4(d=1, a=2, b=3, c=4)  # fn4: d=1, kwargs={'a': 2, 'b': 3, 'c': 4}
+
+
+def fn5(**kwargs):
+    print(f'fn5: kwargs={kwargs}')
+
+
+fn5(a=1, b=2, c=3)  # fn5: kwargs={'a': 1, 'b': 2, 'c': 3}
+
+
+def fn6(*args, **kwargs):
+    print(f'fn6: args={args}, kwargs={kwargs}')
+
+
+fn6()  # fn6: args=(), kwargs={}
+fn6(1, 2)  # fn6: args=(1, 2), kwargs={}
+fn6(a=1, b=2)  # fn6: args=(), kwargs={'a': 1, 'b': 2}
+fn6(1, 2, a=3, b=4)  # fn6: args=(1, 2), kwargs={'a': 3, 'b': 4}
+
+# The native print() is defined like this
+# print(*objects, sep='', end='\n', file=sys.stdout, flush=False)
+# So you can do these things
+print('a', 'b', 'c', sep=',')  # a,b,c
+
+# The next two print() calls print this combined
+# a,b,c@d,e,f$
+print('a', 'b', 'c', sep=',', end='@')
+print('a', 'b', 'c', sep=',', end='$')
