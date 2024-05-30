@@ -5,7 +5,7 @@
 - The parameters are optional
 - The evaluted expression is return as the return value of the function
 - They're mostly used as one-off functions to be passed directly to higher-order
-functions like `map()` and `filter()`
+functions like `map()`, `filter()` and `sorted()`
 
 
 ```py
