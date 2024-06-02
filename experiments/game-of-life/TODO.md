@@ -1,0 +1,2 @@
+- [ ] Split the main script into multiple modules
+- [ ] Add testing
