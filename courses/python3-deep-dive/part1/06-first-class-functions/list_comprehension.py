@@ -54,3 +54,13 @@ print(list2)  # [0, 1, 4, 9, 16]
 # With a nested list comprehension
 list3 = [y for y in [x**2 for x in nums] if y < 25]
 print(list3)  # [0, 1, 4, 9, 16]
+
+# Literal generators are created via something similar to list comprehensions
+my_list_comp = [num * 2 for num in range(10)]
+my_gen = (num * 2 for num in range(10))
+print(my_gen)  # <generator object <genexpr> at 0x000001B13B00F370>
+print(list(my_gen))  # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+# Literal generators are expressed almost equivalently to list comprehensions,
+# but they could be more efficient since calculations are deferred and run one
+# by one as the generators returns values (with list() or a standard loop)
