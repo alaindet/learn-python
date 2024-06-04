@@ -38,6 +38,16 @@ fn(10, 20) # This creates a new local scope with a=10, b=20, c=200
 fn('@', 5) # This creates a new local scope with a='@', b=5, c='@@@@@'
 ```
 
+## Nonlocale scope
+
+- Imagine a function declaring another function inside of it
+- They both have a "local" scope, but the inner function has a somewhat "more local"
+scope
+- The scope of the outer function is **nonlocal** from the perspective of the inner function
+- The `nonlocal` variable gets resolved recursively, so that Python looks for an
+existing variable in the parent local scope and keeps looking up until it finds a
+suiting variable otherwise it fails at runtime with a `SyntaxError`
+
 ## Scope resolution
 - Python searches for declarations and definitions going from the innermost to
 the outermost scope
