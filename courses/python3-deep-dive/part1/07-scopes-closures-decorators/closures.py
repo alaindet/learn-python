@@ -46,3 +46,43 @@ c = create_counter(2)
 print(c()) # 3
 print(c()) # 4
 print(c()) # 5
+
+def create_counters(initial_value = 0):
+    counter = initial_value
+
+    def count1():
+        nonlocal counter
+        counter += 1
+        return counter
+    
+    def count2():
+        nonlocal counter
+        counter += 1
+        return counter
+
+    
+    return count1, count2
+
+c1, c2 = create_counters(5)
+print(c1()) # 6
+print(c2()) # 7
+print(c1()) # 8
+print(c2()) # 9
+
+
+def create_counters_again(initial_value = 0):
+    counter = initial_value
+
+    def count():
+        nonlocal counter
+        counter += 1
+        return counter
+
+    
+    return count, count
+
+c1, c2 = create_counters_again(10)
+print(c1()) # 11
+print(c2()) # 12
+print(c1()) # 13
+print(c2()) # 14
