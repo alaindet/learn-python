@@ -14,6 +14,7 @@ class AuthException(Exception):
         super().__init__(message)
 
 def auth(role: Role):
+    """This is the base decorator factory for authorization"""
     def decorator(fn):
         @wraps(fn)
         def inner(*args, **kwargs):
@@ -24,11 +25,21 @@ def auth(role: Role):
         return inner
     return decorator
 
-@auth(Role.Basic)
+def is_basic_user(fn):
+    """A pre-defined auth decorator for basic users"""
+    return auth(Role.Basic)(fn)
+
+def is_admin(fn):
+    """A pre-defined auth decorator for admins"""
+    return auth(Role.Admin)(fn)
+
+# @auth(Role.Basic)
+@is_basic_user
 def create_posts():
     print('create_posts')
 
-@auth(Role.Admin)
+# @auth(Role.Admin)
+@is_admin
 def delete_posts():
     print('delete_posts')
 
