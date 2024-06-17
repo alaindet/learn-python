@@ -16,3 +16,20 @@ The module loading algorithm looks like this
 - Adds an entry into `sys.modules` to avoid loading it again
 - Compiles and executes any source contained in the module
 - **NOTE**: Any imported module runs its code at least once!
+
+## Importer
+- An importer in Python is the combination of
+  - a **finder**: a piece of code which searches for a given file based on some conventions
+  - a **loader**: a piece of code loading the source code from the file system into the runtime
+- For example, finders could extract source code from a `.zip` files
+
+### Finder
+- A finder returns a "module specification" of type `ModuleSpec`, accessible on existing modules via the `__spec__` property
+- The spec contains the specifics on how the Python runtime should load the found module, including the name, what loader to use and the absolute path of the file containing the source code
+
+```py
+import fractions
+
+print(fractions.__spec__)
+# ModuleSpec(name='fractions', loader=<_frozen_importlib_external.SourceFileLoader object at 0x000001D3A7BB60F0>, origin="<MY_INSTALLATION_PATH>\\Lib\\fractions.py")
+```
